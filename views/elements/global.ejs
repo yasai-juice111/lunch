@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  var serverParams = {};
+  serverParams = {{-JSON.stringify(appSettings)}};
+  serverParams.deployVersionId = "{{=buildId}}";
+  serverParams.tplPath = "/js/app/tpl";
+  serverParams.deviceInfo = {{-JSON.stringify(deviceInspector.info)}};
+  serverParams.timeDiff = {{-JSON.stringify(datetimeFake.timeDiff)}};
+  serverParams._csrf = {{-JSON.stringify(_csrf)}};
+  serverParams.isClosedBeta = {{-isClosedBeta}};
+</script>

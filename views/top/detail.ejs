@@ -1,0 +1,63 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title maB10"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <% if (lunchBox.amount - currentRecevedAmount > 0) { %>
+        <div class="lunch_box_wrapper">
+            <div class="lunch_menu_layout size_ss">
+                <div class="lunch_menu_image">
+                    <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+                </div>
+                <div class="text_layout_l">
+                    <span><%= lunchBox.name %></span><br>
+                    <p class="text_right">残り:<span class="font_color_orange"><%= lunchBox.amount - currentRecevedAmount %></span>個</p><br>
+                </div>
+                <div class="text_layout_l">
+                    <p class="text_right">金額：<%= lunchBox.price %>円</p><br>
+                </div>
+                <div class="text_layout_l">
+                    <span>販売場所:<%= lunchBox.store %></span><br>
+                </div>
+                <% if (!reservedFlag) { %>
+                    <div class="buttonL gray_button w290 maT10 pa0">
+                        <div class="text_layout_l w290">
+                            <div class="buttonS dark_gray_button">注文数</div>
+                            <form action="/top/execute" method="POST" name="form" class="text_right paB10" accept-charset="utf-8">
+                                <select name="amount">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                                <input type="hidden" name="id" value="<%= lunchBox.id %>">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <a href="/top" class="buttonM back_button maT10 maB10">選びなおす</a>
+                        <a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">これにする</a>
+                    </div>
+                <% } else { %>
+                    <div class="center">
+                        <p class="font_color_orange maT10">予約済みです</p><br>
+                        <a href="/top" class="buttonM back_button maT10 maB10">TOPへ</a>
+                    </div>
+                <% }%>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="lunch_box_wrapper">
+            <div class="lunch_menu_layout">
+                <div class="lunch_menu_image opacity">
+                    <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+                </div>
+                <div class="text_layout_l center">
+                    <p class="font_color_orange">本日は売り切れました</p>
+                </div>
+                <div class="center">
+                    <a href="/top" class="buttonL back_button maT10 maB10">選びなおす</a>
+                </div>
+
+                <div class="sold_out"></div>
+            </div>
+        </div>
+    <% } %>
+</div>

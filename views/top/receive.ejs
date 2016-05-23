@@ -1,0 +1,32 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title maB10"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <div class="lunch_box_wrapper">
+        <div class="lunch_menu_layout size_ss">
+            <div class="lunch_menu_image opacity">
+                <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+            </div>
+            <hr class="hr_line maT10 maB10">
+            <div class="text_layout_l">
+                <p><%= lunchBox.name %></p>
+            </div>
+            <div class="text_layout_l">
+                <br><p class="text_right">注文個数：<span><%= userLunchBox.amount %>個</span></p>
+            </div>
+            <div class="text_layout_l">
+                <p>販売場所：<%= lunchBox.store %></p>
+            </div>
+            <hr class="hr_line maT10">
+            <hr class="hr_line maT5 maB10">
+            <div class="text_layout_l">
+                <p>合計金額</p>
+                <p class="text_right"><%= lunchBox.price * userLunchBox.amount %>円</p>
+            </div>
+            <hr class="hr_line maT10 maB10">
+            <div class="center">
+                <p class="font_color_orange">受取完了しました</p>
+                <a href="/reserved %>" class="buttonL back_button maT10 maB10">戻る</a>
+            </div>
+        </div>
+    </div>
+</div>

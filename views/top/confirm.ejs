@@ -1,0 +1,20 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title maB10">20xx年xx月xx日のメニュー</h1>
+    <div class="lunch_box_wrapper">
+        <div class="lunch_menu">
+            <div class="lunch_menu_image">
+				<img src="../<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+            </div>
+            <p class="lunch_menu_name"><%= lunchBox.name %></p>
+            <p class="lunch_menu_name"><%= lunchBox.maker %></p>
+            <p class="lunch_menu_name"><%= lunchBox.price %>円</p>
+            <p class="left">残り <span><%= currentRecevedAmount %>/<span class="color_red"><%= lunchBox.amount %></span></span></p>
+        </div>
+    </div>
+	<a href="/top" class="buttonM back_button maB10">選びなおす</a>
+	<form action="/top/execute" method="POST" name="form">
+		<a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonM next_button maB10">これにする</a>
+		<input type="hidden" name="id" value="<%= lunchBox.id %>">
+	</form>
+</div>

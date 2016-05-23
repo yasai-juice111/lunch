@@ -1,0 +1,32 @@
+<div id="stage" class="lunch" style="position:relative">
+    <h1 class="lunch_title maB10"><%= dateformat(saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+	<% if (userLunchBoxList.length > 0) { %>
+	    <% _.each(userLunchBoxList, function(userLunchBox){ %>
+		    <ul class="lunch_list_wrapper size_ss">
+		        <li class="lunch_menu_layout2 order_flag">
+		            <div class="lunch_menu_image">
+		        		<a href="/reserved/detail?id=<%= userLunchBox.id %>" class="">
+							<img src="<%= userLunchBox.lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+		        		</a>
+		            </div>
+		            <div class="text_layout_m maL5">
+		                <p><%= userLunchBox.lunchBox.name %></p><br><br>
+		                <p class="text_right">予約個数:<%= userLunchBox.amount %>個</p><br>
+		            </div>
+		            <div class="text_layout_m maL5">
+		                <p class="text_right">金額:<%= userLunchBox.lunchBox.price * userLunchBox.amount %>円</p><br>
+		            </div>
+		            <div class="text_layout_m maL5">
+		            	<br><p>販売場所：<%= userLunchBox.lunchBox.store %></p>
+		            </div>
+		        </li>
+		    </ul>
+	    <% }); %>
+	<% } else { %>
+	    <img src="../img/99_lunch/logo_001.png" alt="" width="70%;" height="70%;">
+	    <div class="center">
+	        <p class="color_red size_m maT10">予約がありません</p>
+	    </div>
+	    <a href="/top %>" class="buttonL back_button maT10 maB10">TOPへ</a>
+	<% } %>
+</div>

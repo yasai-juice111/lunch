@@ -1,0 +1,53 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title maB10"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <% if (!userLunchBox.receiveFlag) { %>
+        <div class="lunch_box_wrapper">
+            <div class="lunch_menu_layout">
+                <div class="lunch_menu_image">
+                    <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+                </div>
+                <div class="text_layout_l">
+                    <p>予約名:<span class="font_color_orange"><%= user.employeeId %></span></p>
+                    <p class="text_right">所属:<span class="font_color_orange"><%= user.company %></span></p>
+                </div>
+                <div class="text_layout_l">
+                    <p><%= lunchBox.name %></p>
+                    <p class="text_right">予約個数:<span class="font_color_orange size_m"><%= userLunchBox.amount %></span></p>
+                </div>
+                <div class="text_layout_l">
+                    <p>販売場所：<%= lunchBox.store %></p>
+                    <p class="text_right">金額：<%= lunchBox.price %>円</p>
+                </div>
+                <div class="center">
+                    <a href="/admin" class="buttonM back_button maT10 maB10">戻る</a>
+                    <form action="/admin/receive" method="POST" name="form" class="text_right paB10" accept-charset="utf-8">
+                        <input type="hidden" name="id" value="<%= userLunchBox.id %>">
+                    </form>
+                    <a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">受取完了にする</a>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="lunch_box_wrapper">
+            <div class="lunch_menu_layout">
+                <div class="lunch_menu_image opacity">
+                    <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+                </div>
+                <div class="text_layout_l">
+                    <p>予約名:<span class="font_color_orange"><%= user.employeeId %></span></p>
+                    <p class="text_right">所属:<span class="font_color_orange"><%= user.company %></span></p>
+                </div>
+                <div class="text_layout_l center">
+                    <p class="font_color_orange">受け取りました</p>
+                </div>
+                <div class="center">
+                    <a href="/admin" class="buttonL back_button maT10 maB10">戻る</a>
+                </div>
+
+                <div class="sold_out"></div>
+            </div>
+        </div>
+    <% } %>
+
+</div>

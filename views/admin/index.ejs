@@ -1,0 +1,22 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title"><%= dateformat(saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <h1 class="lunch_title size_m color_red">※<%= dateformat(saleDate, 'yyyy年m月dd日 hh時MM分ss秒') %>更新</h1>
+    <% _.each(lunchBoxList, function(lunchBox){ %>
+	    <ul class="lunch_list_wrapper size_m">
+	        <li class="lunch_menu_layout2 order_flag">
+	            <div class="lunch_menu_image">
+	                <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+	            </div>
+	            <div class="text_layout_m maL5">
+	                <p><%= lunchBox.name %></p><br>
+	                <p><%= lunchBox.store %></p><br>
+	                <p>予約合計：<span class="font_color_orange"><%= lunchBox.currentReservedAmount %></span>個</p>
+	            </div>
+	            <div class="text_layout_m maL5">
+	            	<br><p class="text_right"><%= lunchBox.price %>円</p>
+	            </div>
+	        </li>
+	    </ul>
+    <% }); %>
+</div>

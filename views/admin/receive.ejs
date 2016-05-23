@@ -1,0 +1,23 @@
+<div id="stage" class="lunch" style="position:relative">
+
+<h1 class="lunch_title maB10"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <div class="lunch_box_wrapper">
+        <div class="lunch_menu_layout">
+            <div class="lunch_menu_image opacity">
+                <img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+            </div>
+            <div class="text_layout_l">
+                <p>予約名:<span class="font_color_orange"><%= user.employeeId %></span></p>
+                <p class="text_right">所属:<span class="font_color_orange"><%= user.company %></span></p>
+            </div>
+            <div class="text_layout_l center">
+                <p class="font_color_orange">受け取りました</p>
+            </div>
+            <div class="center">
+                <a href="/admin" class="buttonL back_button maT10 maB10">戻る</a>
+            </div>
+
+            <div class="sold_out"></div>
+        </div>
+    </div>
+</div>

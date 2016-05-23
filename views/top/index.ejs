@@ -1,0 +1,29 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <h1 class="lunch_title maB10"><%= dateformat(saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <% if (lunchBoxList.length > 0 && availablePurchaseFlag) { %>
+	    <ul class="lunch_list_wrapper">
+		    <% _.each(lunchBoxList, function(lunchBox){ %>
+				<li class="lunch_menu_layout">
+		            <div class="lunch_menu_image">
+    	        		<a href="/top/detail?id=<%= lunchBox.id %>">
+		                	<img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
+    	        		</a>
+		            </div>
+		            <div class="text_layout_m maL0 size_ss">
+		                <p class='lunch_menu_name'><%= lunchBox.name %></p><br>
+		                <p><%= lunchBox.store %></p><br>
+		                <p>残り:<span class="font_color_orange"><%= lunchBox.amount - lunchBox.currentRecevedAmount %></span>個</p><br>
+		                <p><span class="text_right"><%= lunchBox.price %>円</span></p>
+		            </div>
+		        </li>
+		    <% }); %>
+	    </ul>
+    <% } else { %>
+	    <img src="../img/99_lunch/logo_001.png" alt="" width="70%;" height="70%;">
+	    <div class="center">
+	        <p class="color_red size_ll">更新中...しばらくお待ち下さい</p>
+	    </div>
+	<% } %>
+	<% include ../attention %>
+</div>
