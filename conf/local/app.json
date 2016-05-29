@@ -14,7 +14,7 @@
 		"host": "localhost",
 		"user": "root",
 		"password": "root",
-		"database": "node",
+		"database": "sugorilunch",
 		"connectTimeout" : 5000
 	},
 	"mongodbConf" : {

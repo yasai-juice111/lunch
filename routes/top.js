@@ -23,6 +23,7 @@ router.get('/', function(req, res, next) {
 	var saleDate = req.currentDatetime || new Date();
 
 	topFacade.index(req, {
+		"userId": req.session.user.id,
 		"saleDate": saleDate
 	},function(error, result) {
 		if (error) {
@@ -30,11 +31,33 @@ router.get('/', function(req, res, next) {
 			return
 		}
 		result.saleDate = saleDate;
-		result.availablePurchaseFlag = false;
-		if (dateformat(saleDate, 'HH') == '09' || dateformat(saleDate, 'HH') == '10' || dateformat(saleDate, 'HH') == '11' || mode == 'local') {
-			result.availablePurchaseFlag = true;
-		}
+console.log(result);
 		res.render('top/index', result);
+	});
+});
+
+/**
+ * 選択
+ *
+ * @param {Object} req リクエスト
+ * @param {Object} res レスポンス
+ * @param {Function} next ネクスト
+ */
+router.post('/select', function(req, res, next) {
+
+	var currentDatetime = req.currentDatetime || new Date();
+
+	var lunchBoxStoreId = validator.toInt(req.param('lunchBoxStoreId'));
+
+	topFacade.select(req, {
+		"userId": req.session.user.id,
+		"lunchBoxStoreId": lunchBoxStoreId
+	},function(error, result) {
+		if (error) {
+		  	res.redirect('/error');
+			return
+		}
+	  	res.redirect('/top');
 	});
 });
 
@@ -50,6 +73,8 @@ router.get('/detail', function(req, res, next) {
         res.redirect('/auth');
         return;
     }
+	var saleDate = req.currentDatetime || new Date();
+
 	var lunchBoxId = validator.toInt(req.param('id'));
 
 	topFacade.detail(req, {
@@ -59,6 +84,10 @@ router.get('/detail', function(req, res, next) {
 		if (error) {
 		  	res.redirect('/error');
 			return
+		}
+		result.availablePurchaseFlag = false;
+		if (dateformat(saleDate, 'HH') == '09' || dateformat(saleDate, 'HH') == '10' || dateformat(saleDate, 'HH') == '11' || mode == 'local') {
+			result.availablePurchaseFlag = true;
 		}
 		res.render('top/detail', result);
 	});
@@ -103,23 +132,30 @@ router.post('/execute', function(req, res, next) {
         res.redirect('/auth');
         return;
     }
+
+	var saleDate = req.currentDatetime || new Date();
+
 	var lunchBoxId = validator.toInt(req.param('id'));
 	var amount = validator.toInt(req.param('amount'));
 
-	topFacade.execute(req, {
-		"userId": req.session.user.id,
-		"lunchBoxId": lunchBoxId,
-		"amount": amount
-	},function(error, result) {
-		if (error) {
-		  	res.redirect('/error');
-			return
-		}
-		req.session.reservedLunchBox = {
-			"lunchBoxId": lunchBoxId
-		}
-	  	res.redirect('/top/finish');
-	});
+	if (dateformat(saleDate, 'HH') == '09' || dateformat(saleDate, 'HH') == '10' || dateformat(saleDate, 'HH') == '11' || mode == 'local') {
+		topFacade.execute(req, {
+			"userId": req.session.user.id,
+			"lunchBoxId": lunchBoxId,
+			"amount": amount
+		},function(error, result) {
+			if (error) {
+			  	res.redirect('/error');
+				return
+			}
+			req.session.reservedLunchBox = {
+				"lunchBoxId": lunchBoxId
+			}
+		  	res.redirect('/top/finish');
+		});
+	} else {
+	  	res.redirect('/top');
+	}
 });
 
 

@@ -18,7 +18,7 @@
                     <br><p class="text_right">注文個数：<span><%= userLunchBox.amount %>個</span></p>
                 </div>
                 <div class="text_layout_l">
-                    <br><p>販売場所：<%= lunchBox.store %></p>
+                    <br><p>販売場所：<%= lunchBoxStoreMap[lunchBox.lunchBoxStoreId].name %></p>
                 </div>
                 <hr class="hr_line maT10">
                 <hr class="hr_line maT5 maB10">
@@ -52,7 +52,7 @@
                     <p class="text_right">注文個数：<span><%= userLunchBox.amount %>個</span></p>
                 </div>
                 <div class="text_layout_l">
-                    <p>販売場所：<%= lunchBox.store %></p>
+                    <p>販売場所：<%= lunchBoxStoreMap[lunchBox.lunchBoxStoreId].name %></p>
                 </div>
                 <hr class="hr_line maT10">
                 <hr class="hr_line maT5 maB10">

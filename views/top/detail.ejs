@@ -15,9 +15,9 @@
                     <p class="text_right">金額：<%= lunchBox.price %>円</p><br>
                 </div>
                 <div class="text_layout_l">
-                    <span>販売場所:<%= lunchBox.store %></span><br>
+                    <span>販売場所:<%= lunchBoxStoreMap[lunchBox.lunchBoxStoreId].name %></span><br>
                 </div>
-                <% if (!reservedFlag) { %>
+                <% if (!reservedFlag && availablePurchaseFlag) { %>
                     <div class="buttonL gray_button w290 maT10 pa0">
                         <div class="text_layout_l w290">
                             <div class="buttonS dark_gray_button">注文数</div>
@@ -35,9 +35,13 @@
                         <a href="/top" class="buttonM back_button maT10 maB10">選びなおす</a>
                         <a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">これにする</a>
                     </div>
-                <% } else { %>
+                <% } else  { %>
                     <div class="center">
-                        <p class="font_color_orange maT10">予約済みです</p><br>
+                        <% if (availablePurchaseFlag) { %>
+                            <p class="font_color_orange maT10">予約可能時間外です</p><br>
+                        <% } else { %>
+                            <p class="font_color_orange maT10">予約済みです</p><br>
+                        <% } %>
                         <a href="/top" class="buttonM back_button maT10 maB10">TOPへ</a>
                     </div>
                 <% }%>

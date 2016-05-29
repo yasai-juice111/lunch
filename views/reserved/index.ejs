@@ -17,7 +17,7 @@
 		                <p class="text_right">金額:<%= userLunchBox.lunchBox.price * userLunchBox.amount %>円</p><br>
 		            </div>
 		            <div class="text_layout_m maL5">
-		            	<br><p>販売場所：<%= userLunchBox.lunchBox.store %></p>
+		            	<br><p>販売場所：<%= lunchBoxStoreMap[userLunchBox.lunchBox.lunchBoxStoreId].name %></p>
 		            </div>
 		        </li>
 		    </ul>

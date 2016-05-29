@@ -1,3 +1,5 @@
+DROP TABLE user;
+
 SET CHARSET utf8;
 
 /**
