@@ -31,7 +31,6 @@ router.get('/', function(req, res, next) {
 			return
 		}
 		result.saleDate = saleDate;
-console.log(result);
 		res.render('top/index', result);
 	});
 });
