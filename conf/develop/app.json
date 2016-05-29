@@ -1,0 +1,58 @@
+{
+	"app" : {
+		"mode": "develop"
+	},
+	"casso" : {
+		"authUrl": "https://caoauth.services.isca.jp/as/authorization.oauth2",
+		"oauthTokenUrl": "https://caoauth.services.isca.jp/as/token.oauth2",
+		"userInfoUrl": "https://caoauth.services.isca.jp/idp/userinfo.openid",
+		"clientId": "sugorilunch",
+		"clientSecret": "G17wXjhXKJjArEiWA25DbUTxIa2VWYt4e6JwV655IyQFZKfR3ajGLuQmaodadvqQ",
+		"callbackUrl": "https://sugorilunch.ca.sge-devel.com/auth/callback"
+	},
+	"mysqlConf" : {
+		"host": "localhost",
+		"user": "update_user",
+		"password": "a3APS5GuSWx",
+		"database": "sugorilunch",
+		"connectTimeout" : 5000
+	},
+	"mongodbConf" : {
+		"secret": "sugorilunch",
+		"host": "mongodb://localhost:27017/user",
+		"collection" : "session"
+	},
+	"logger": {
+		"appenders": [
+			{
+				"category": "access",
+				"type": "dateFile",
+				"filename": "/tmp/access.log",
+				"pattern": "-yyyy-MM-dd",
+				"backups": 3
+			},
+			{
+				"category": "system",
+				"type": "dateFile",
+				"filename": "/tmp/system.log",
+				"pattern": "-yyyy-MM-dd",
+				"backups": 3
+			},
+			{
+				"category": "error",
+				"type": "dateFile",
+				"filename": "/tmp/error.log",
+				"pattern": "-yyyy-MM-dd",
+				"backups": 3
+			},
+			{
+				"type": "console"
+			}
+		],
+		"levels": {
+			"access": "ALL",
+			"system": "ALL",
+			"error": "ALL"
+		}
+	}
+}
