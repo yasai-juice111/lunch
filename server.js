@@ -62,10 +62,12 @@ app.use(session({
   secret: mongodbConf.secret,
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    collection: mongodbConf.collection
+    collection: mongodbConf.collection,
+    clear_interval:  24 * 30 * 60 * 60 // 保存期間(sec)
   }),
   cookie: {
-    httpOnly: false
+    httpOnly: false,
+    maxAge: 24 * 30 * 60 * 60 * 1000 // クッキーの有効期限(msec)
   }
 }));
 // validator
