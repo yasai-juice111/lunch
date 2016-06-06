@@ -47,14 +47,18 @@ router.get('/', function(req, res, next) {
     // }
     if (req.cookies) {
         var sid = req.cookies['connect.sid'].match(/s:([^.]*)\./)[1];
+        var userData = {};
         User.find({ sid: sid }, function(err, data){
             if(err){
                 console.log (err);
             }
-            req.session.user = _.last(data);
+            userData = _.last(data);
+            req.session.user = userData;
         });
-        res.redirect(redirectUrl);
-        return;
+        if (userData) {
+            res.redirect(redirectUrl);
+            return;
+        }
     }
     redirectUrl = casso.authUrl+
                 "?response_type=code&client_id="+casso.clientId+
