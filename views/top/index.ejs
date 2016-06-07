@@ -21,11 +21,15 @@
 		    </ul>
 		    <div class="center">
 	            <span class="color_red">販売ビルを選択して下さい</span>
-		        <div class="buttonL maT10 pa0">
+		        <div class="buttonL maT10 maB10 pa0">
 	                <form action="/top/select" method="POST" name="select" accept-charset="utf-8">
 	                    <select name="lunchBoxStoreId">
 							<% _.each(lunchBoxStoreMap, function(lunchBoxStore) { %>
-	                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+								<% if(userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
+		                            <option value="<%= lunchBoxStore.id %>" selected><%= lunchBoxStore.name %></option>
+								<% } else { %>
+		                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+								<% } %>	
 							<% }); %>
 	                    </select>
 	                </form>
@@ -42,11 +46,15 @@
 	    <img src="../img/99_lunch/logo_001.png" alt="" width="70%;" height="70%;">
 	    <div class="center">
             <span class="color_red">販売ビルを選択して下さい</span>
-	        <div class="buttonL maT10 pa0">
+	        <div class="buttonL maT10 maB10 pa0">
                 <form action="/top/select" method="POST" name="select" accept-charset="utf-8">
                     <select name="lunchBoxStoreId">
 						<% _.each(lunchBoxStoreMap, function(lunchBoxStore) { %>
-                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+							<% if(userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
+	                            <option value="<%= lunchBoxStore.id %>" selected><%= lunchBoxStore.name %></option>
+							<% } else { %>
+	                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+							<% } %>
 						<% }); %>
                     </select>
                 </form>
@@ -55,4 +63,6 @@
 	    </div>
 	<% } %>
 	<% include ../attention %>
+    <a href="/announce %>" class="buttonL back_button maT10 maB10 size_ss">現在発生しているバグ・トラブルについて</a>
+
 </div>

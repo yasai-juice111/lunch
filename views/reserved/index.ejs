@@ -4,7 +4,11 @@
 	    <% _.each(userLunchBoxList, function(userLunchBox){ %>
 		    <ul class="lunch_list_wrapper size_ss">
 		        <li class="lunch_menu_layout2 order_flag">
+		        	<% if (userLunchBox.receiveFlag) { %>
+		            <div class="lunch_menu_image opacity">
+		        	<% } else { %>
 		            <div class="lunch_menu_image">
+		        	<% } %>
 		        		<a href="/reserved/detail?id=<%= userLunchBox.id %>" class="">
 							<img src="<%= userLunchBox.lunchBox.imagePath %>" alt="" width="100%;" height="100%;">
 		        		</a>
@@ -22,6 +26,18 @@
 		        </li>
 		    </ul>
 	    <% }); %>
+	    <%
+	    	var allReceiveFlag = _.find(userLunchBoxList, function(userLunchBox) {
+	    		return !userLunchBox.receiveFlag == true;
+	    	});
+	    %>
+	    <% if (allReceiveFlag) { %>
+	        <div class="center">
+	            <form action="/top/receiveAll" method="POST" name="form">
+	                <a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonL next_button maT10">一括受取する</a>
+	            </form>
+	        </div>
+	    <% } %>
 	<% } else { %>
 	    <img src="../img/99_lunch/logo_001.png" alt="" width="70%;" height="70%;">
 	    <div class="center">

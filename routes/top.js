@@ -5,6 +5,9 @@ var router = express.Router();
 var validator = require('validator');
 var dateformat = require('dateformat');
 
+// util
+var checker = require(__libpath + "/util/checker");
+
 // facade
 var topFacade = require(__libpath + '/models/facade/top_facade');
 
@@ -21,7 +24,6 @@ router.get('/', function(req, res, next) {
         return;
     }
 	var saleDate = req.currentDatetime || new Date();
-
 	topFacade.index(req, {
 		"userId": req.session.user.id,
 		"saleDate": saleDate
@@ -84,39 +86,36 @@ router.get('/detail', function(req, res, next) {
 		  	res.redirect('/error');
 			return
 		}
-		result.availablePurchaseFlag = false;
-		if (dateformat(saleDate, 'HH') == '09' || dateformat(saleDate, 'HH') == '10' || dateformat(saleDate, 'HH') == '11' || mode == 'local') {
-			result.availablePurchaseFlag = true;
-		}
+		result.availablePurchaseFlag = checker.isPurchase(saleDate, result.lunchBox.lunchBoxStoreId);
 		res.render('top/detail', result);
 	});
 });
 
-/**
- * 確認
- *
- * @param {Object} req リクエスト
- * @param {Object} res レスポンス
- * @param {Function} next ネクスト
- */
-router.post('/confirm', function(req, res, next) {
-    if (!req.session.user) {
-        res.redirect('/auth');
-        return;
-    }
-	var lunchBoxId = validator.toInt(req.param('id'));
+// /**
+//  * 確認
+//  *
+//  * @param {Object} req リクエスト
+//  * @param {Object} res レスポンス
+//  * @param {Function} next ネクスト
+//  */
+// router.post('/confirm', function(req, res, next) {
+//     if (!req.session.user) {
+//         res.redirect('/auth');
+//         return;
+//     }
+// 	var lunchBoxId = validator.toInt(req.param('id'));
 
-	topFacade.confirm(req, {
-		"lunchBoxId": lunchBoxId,
-		"amount": 1
-	},function(error, result) {
-		if (error) {
-		  	res.redirect('/error');
-			return
-		}
-		res.render('top/confirm', result);
-	});
-});
+// 	topFacade.confirm(req, {
+// 		"lunchBoxId": lunchBoxId,
+// 		"amount": 1
+// 	},function(error, result) {
+// 		if (error) {
+// 		  	res.redirect('/error');
+// 			return
+// 		}
+// 		res.render('top/confirm', result);
+// 	});
+// });
 
 
 /**
@@ -135,26 +134,27 @@ router.post('/execute', function(req, res, next) {
 	var saleDate = req.currentDatetime || new Date();
 
 	var lunchBoxId = validator.toInt(req.param('id'));
+	var lunchBoxStoreId = validator.toInt(req.param('lunchBoxStoreId'));
 	var amount = validator.toInt(req.param('amount'));
 
-	if (dateformat(saleDate, 'HH') == '09' || dateformat(saleDate, 'HH') == '10' || dateformat(saleDate, 'HH') == '11' || mode == 'local') {
-		topFacade.execute(req, {
-			"userId": req.session.user.id,
-			"lunchBoxId": lunchBoxId,
-			"amount": amount
-		},function(error, result) {
-			if (error) {
-			  	res.redirect('/error');
-				return
-			}
-			req.session.reservedLunchBox = {
-				"lunchBoxId": lunchBoxId
-			}
-		  	res.redirect('/top/finish');
-		});
-	} else {
+	if (!checker.isPurchase(saleDate, lunchBoxStoreId)) {
 	  	res.redirect('/top');
+	  	return;
 	}
+	topFacade.execute(req, {
+		"userId": req.session.user.id,
+		"lunchBoxId": lunchBoxId,
+		"amount": amount
+	},function(error, result) {
+		if (error) {
+		  	res.redirect('/error');
+			return
+		}
+		req.session.reservedLunchBox = {
+			"lunchBoxId": lunchBoxId
+		}
+	  	res.redirect('/top/finish');
+	});
 });
 
 
@@ -201,6 +201,31 @@ router.post('/receive', function(req, res, next) {
 			return
 		}
 		res.render('top/receive', result);
+	});
+});
+
+
+/**
+ * 一括受取
+ *
+ * @param {Object} req リクエスト
+ * @param {Object} res レスポンス
+ * @param {Function} next ネクスト
+ */
+router.post('/receiveAll', function(req, res, next) {
+
+	var saleDate = req.currentDatetime || new Date();
+
+	topFacade.receiveAll(req, {
+		"userId": req.session.user.id,
+		"saleDate": saleDate
+	},function(error, result) {
+		console.log(error);
+		if (error) {
+		  	res.redirect('/error');
+			return
+		}
+	  	res.redirect('/reserved');
 	});
 });
 

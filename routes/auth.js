@@ -19,35 +19,36 @@ var authFacade = require(__libpath + '/models/facade/auth_facade');
  */
 router.get('/', function(req, res, next) {
     var redirectUrl = '/top';
-    // if (mode == "local") {
-    //     // sessionに保存
-    //     req.session.user = {
-    //         "id": 1,
-    //         "employeeId": "TEST",
-    //         "employeeType": 1,
-    //         "company": "テスト",
-    //         "email": "test@test.co.jp"
-    //     };
-    //     var sid = req.cookies['connect.sid'].match(/s:([^.]*)\./)[1];
-    //     var user = new User({
-    //          sid : sid,
-    //          id : req.session.user.id,
-    //          employeeId : req.session.user.employeeId
-    //     });
-    //     user.save(function(err){
-    //         if(err){
-    //             console.log(err);
-    //         }
-    //     });
+    if (mode == "local") {
+        // sessionに保存
+        req.session.user = {
+            "id": 1,
+            "employeeId": "TEST",
+            "employeeType": 1,
+            "company": "テスト",
+            "email": "test@test.co.jp"
+        };
+        var sid = req.cookies['connect.sid'].match(/s:([^.]*)\./)[1];
+        var user = new User({
+             sid : sid,
+             id : req.session.user.id,
+             employeeId : req.session.user.employeeId
+        });
+        user.save(function(err){
+            if(err){
+                console.log(err);
+            }
+        });
 
-    // }
-    // if (req.session.user) {
-    //     res.redirect(redirectUrl);
-    //     return;
-    // }
+    }
+    if (req.session.user) {
+        res.redirect(redirectUrl);
+        return;
+    }
     if (req.cookies) {
         var sid = req.cookies['connect.sid'].match(/s:([^.]*)\./)[1];
-        var userData = {};
+        req.session.sid = sid;
+        var userData = null;
         User.find({ sid: sid }, function(err, data){
             if(err){
                 console.log (err);
@@ -85,6 +86,18 @@ router.get('/callback', function(req, res, next) {
         return;
     }
     if (req.session.user) {
+        // mongodbに保存のための整形
+        var user = new User({
+             sid : req.session.sid,
+             id : req.session.user.id,
+             employeeId : req.session.user.employeeId
+        });
+        // mongodbに保存
+        user.save(function(err){
+            if(err){
+                console.log(err);
+            }
+        });
         res.redirect('/top');
         return;
     }
@@ -125,9 +138,8 @@ router.get('/callback', function(req, res, next) {
                 // sessionに保存
                 req.session.user = result.user; 
                 // mongodbに保存のための整形
-                var sid = req.cookies['connect.sid'].match(/s:([^.]*)\./)[1];
                 var user = new User({
-                     sid : sid,
+                     sid : req.session.sid,
                      id : result.user.id,
                      employeeId : result.user.employeeId
                 });
