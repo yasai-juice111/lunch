@@ -42,15 +42,6 @@ router.get('/upload', function(req, res, next) {
 
 	res.render('admin/upload', {});
 
-	// adminFacade.index(req, {
-	// 	"saleDate": saleDate
-	// },function(error, result) {
-	// 	if (error) {
-	// 	  	res.redirect('/error');
-	// 		return
-	// 	}
-	// 	result.saleDate = saleDate;
-	// });
 });
 
 /**
@@ -62,65 +53,16 @@ router.get('/upload', function(req, res, next) {
  */
 router.post('/upload/execute', function(req, res, next) {
 	var files = req.files;
-	fs.readFile(files[0].path, 'utf8', function (err, text) {
-		console.log('//////////////');
-	    console.log(text);
-	    console.log(err);
-		console.log('//////////////');
-		res.render('admin/upload', {});
-	});
-	// adminFacade.upload(req, {
-	// 	"saleDate": saleDate
-	// },function(error, result) {
-	// 	if (error) {
-	// 	  	res.redirect('/error');
-	// 		return
-	// 	}
-	// 	result.saleDate = saleDate;
-	// });
-});
-
-/**
- * 詳細
- *
- * @param {Object} req リクエスト
- * @param {Object} res レスポンス
- * @param {Function} next ネクスト
- */
-router.get('/detail', function(req, res, next) {
-
-	var userLunchBoxId = req.param('id');
-
-	adminFacade.detail(req, {
-		"userLunchBoxId": userLunchBoxId
+	console.log(files);
+	console.log(files[0].path);
+	adminFacade.upload(req, {
+		"lunchBoxData": fs.readFileSync(files[0].path).toString()
 	},function(error, result) {
 		if (error) {
 		  	res.redirect('/error');
 			return
 		}
-		res.render('admin/detail', result);
-	});
-});
-
-/**
- * 受取
- *
- * @param {Object} req リクエスト
- * @param {Object} res レスポンス
- * @param {Function} next ネクスト
- */
-router.post('/receive', function(req, res, next) {
-
-	var userLunchBoxId = req.param('id');
-
-	adminFacade.receive(req, {
-		"userLunchBoxId": userLunchBoxId
-	},function(error, result) {
-		if (error) {
-		  	res.redirect('/error');
-			return
-		}
-		res.render('admin/receive', result);
+		result.saleDate = saleDate;
 	});
 });
 

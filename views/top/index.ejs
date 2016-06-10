@@ -25,7 +25,7 @@
 	                <form action="/top/select" method="POST" name="select" accept-charset="utf-8">
 	                    <select name="lunchBoxStoreId">
 							<% _.each(lunchBoxStoreMap, function(lunchBoxStore) { %>
-								<% if(userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
+								<% if(userLunchBoxStore && userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
 		                            <option value="<%= lunchBoxStore.id %>" selected><%= lunchBoxStore.name %></option>
 								<% } else { %>
 		                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
@@ -50,11 +50,7 @@
                 <form action="/top/select" method="POST" name="select" accept-charset="utf-8">
                     <select name="lunchBoxStoreId">
 						<% _.each(lunchBoxStoreMap, function(lunchBoxStore) { %>
-							<% if(userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
-	                            <option value="<%= lunchBoxStore.id %>" selected><%= lunchBoxStore.name %></option>
-							<% } else { %>
-	                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
-							<% } %>
+                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
 						<% }); %>
                     </select>
                 </form>
