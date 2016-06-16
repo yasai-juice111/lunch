@@ -1,0 +1,5 @@
+<%
+	var whichDayList = ["日","月","火","水","木","金","土"];
+	var whichDay = whichDayList[saleDate.getDay()];
+%>
+<h1 class="lunch_title maB10"><%= dateformat(saleDate, 'yyyy年m月dd日') %>(<%= whichDay %>)のメニュー</h1>

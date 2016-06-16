@@ -13,6 +13,7 @@ require('./lib/util/global');
 var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var expressValidator = require('express-validator')
+var partials = require('express-partials');
 var path = require('path');
 var http = require('http');
 var cookieParser = require('cookie-parser');
@@ -36,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout', 'layout/base');
 app.use(expressLayouts);
+app.use(partials());
 
 app.locals._ = _;
 app.locals.dateformat = dateformat;
@@ -106,14 +108,9 @@ app.use('/admin', admin);
 //Attached some objects and vars to request object.
 app.use(function(req, res, next){
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  var url = req.url.split('?');
-  if(!url[0].match(/\.[a-zA-z0-9_.-]*$/)){
-    // req.transaction = transactionManager.getTransaction('onhttp_'+ uid, true, req);
-    // req.sequenceTransaction = transactionManager.getTransaction('onhttp_sequence_'+ uid, true, req);
-  }
   req.currentDatetime = new Date();
   req.locals = {};
+  req.render = res.partial;
   next();
 });
 

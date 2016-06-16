@@ -1,6 +1,6 @@
 <div id="stage" class="lunch" style="position:relative">
 	<% if (userLunchBoxStore) { %>
-	    <h1 class="lunch_title maB10"><%= dateformat(saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+	    <%- partial('elements/menu_header', { saleDate : saleDate }); %>
 	    <% if (lunchBoxList.length > 0) { %>
 		    <ul class="lunch_list_wrapper">
 			    <% _.each(lunchBoxList, function(lunchBox){ %>

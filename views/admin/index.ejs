@@ -1,6 +1,6 @@
 <div id="stage" class="lunch" style="position:relative">
 
-    <h1 class="lunch_title"><%= dateformat(saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <%- partial('elements/menu_header', { saleDate : saleDate }); %>
     <h1 class="lunch_title size_m color_red">※<%= dateformat(saleDate, 'yyyy年m月dd日 hh時MM分ss秒') %>更新</h1>
     <% _.each(lunchBoxStoreMap, function(lunchBoxStore){ %>
     	<h1 class="lunch_title color_red">↓↓↓↓↓↓<%= lunchBoxStore.name %>↓↓↓↓↓↓</h1>

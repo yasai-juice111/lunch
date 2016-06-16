@@ -1,6 +1,6 @@
 <div id="stage" class="lunch" style="position:relative">
 
-    <h1 class="lunch_title"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>のメニュー</h1>
+    <%- partial('elements/menu_header', { saleDate : lunchBox.saleDate }); %>
     <div class="lunch_box_wrapper">
         <div class="lunch_menu_layout2 size_ss">
             <div class="lunch_menu_image opacity">

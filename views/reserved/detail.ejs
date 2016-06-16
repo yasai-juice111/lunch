@@ -1,6 +1,6 @@
 <div id="stage" class="lunch" style="position:relative">
 
-    <h1 class="lunch_title"><%= dateformat(lunchBox.saleDate, 'yyyy年m月dd日') %>の予約</h1>
+    <%- partial('elements/menu_header', { saleDate : lunchBox.saleDate }); %>
     <% if (!userLunchBox.receiveFlag) { %>
         <div class="lunch_box_wrapper">
             <div class="lunch_menu_layout2 size_ss">
@@ -28,8 +28,8 @@
                 </div>
                 <hr class="hr_line maT10 maB10">
                 <div class="center">
-                    <form action="/top/receive" method="POST" name="form">
-                        <a href="javascript:void(0)" onclick="document.form.submit();return false;" class="buttonL next_button maT10">受取完了にする</a>
+                    <form action="/top/receive" method="POST" name="receive">
+                        <a href="javascript:void(0)" onclick="document.receive.submit();return false;" class="buttonL next_button maT10">受取完了にする</a>
                         <input type="hidden" name="id" value="<%= userLunchBox.id %>">
                     </form>
                     <form action="/reserved/cancel" method="POST" name="cancel">
