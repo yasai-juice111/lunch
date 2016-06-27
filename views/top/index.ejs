@@ -37,9 +37,24 @@
 	            <a href="javascript:void(0)" onclick="document.select.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">決定</a>
 		    </div>
 	    <% } else { %>
+
 		    <img src="../img/99_lunch/logo_001.png" alt="" width="70%;" height="70%;">
 		    <div class="center">
 		        <p class="color_red size_ll">更新中...しばらくお待ち下さい</p>
+		        <div class="buttonL maT10 maB10 pa0">
+	                <form action="/top/select" method="POST" name="select" accept-charset="utf-8">
+	                    <select name="lunchBoxStoreId">
+							<% _.each(lunchBoxStoreMap, function(lunchBoxStore) { %>
+								<% if(userLunchBoxStore && userLunchBoxStore.lunchBoxStoreId == lunchBoxStore.id) { %>
+		                            <option value="<%= lunchBoxStore.id %>" selected><%= lunchBoxStore.name %></option>
+								<% } else { %>
+		                            <option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+								<% } %>	
+							<% }); %>
+	                    </select>
+	                </form>
+		        </div>
+	            <a href="javascript:void(0)" onclick="document.select.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">決定</a>
 		    </div>
 		<% } %>
 	<% } else { %>
