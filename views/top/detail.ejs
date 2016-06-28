@@ -23,9 +23,11 @@
                             <div class="buttonS dark_gray_button">注文数</div>
                             <form action="/top/execute" method="POST" name="form" class="text_right paB10" accept-charset="utf-8">
                                 <select name="amount">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <% _.each([1,2,3], function(value) { %>
+                                        <% if (lunchBox.amount - currentRecevedAmount >= value) { %>
+                                            <option value="<%= value %>"><%= value %></option>
+                                        <% } %>
+                                    <% }); %>
                                 </select>
                                 <input type="hidden" name="id" value="<%= lunchBox.id %>">
                                 <input type="hidden" name="lunchBoxStoreId" value="<%= lunchBox.lunchBoxStoreId %>">
