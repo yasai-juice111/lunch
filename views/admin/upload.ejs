@@ -1,7 +1,36 @@
 <div id="stage" class="lunch" style="position:relative">
-	<form method="post" action="/admin/upload/execute" enctype="multipart/form-data" accept-charset="utf-8">
+<!-- 	<form method="post" action="/admin/upload/execute" enctype="multipart/form-data" accept-charset="utf-8">
 		<p>入稿<br>
 		<input type="file" name="thumbnail">
 		<input type="submit" value="入稿する">
+	</form> -->
+	<span class="size_l center">【データ入稿】</span><br>
+	<span class="size_ss color_red left">(※カンマ区切りで複数個入稿できます。個数が合ってないとエラーになります)</span>
+    <form method="POST" action="/admin/upload/execute" name="upload" accept-charset="utf-8">
+		<h4>【弁当名】</h4>
+		<textarea name="nameList" rows="4" cols="40"></textarea>
+<!-- 		<h4>【店舗名】</h4>
+		<textarea name="storeList" rows="4" cols="40"></textarea> -->
+		<h4>【金額】</h4>
+		<textarea name="priceList" rows="4" cols="40"></textarea>
+		<h4>【個数】</h4>
+		<textarea name="amountList" rows="4" cols="40"></textarea>
+		<h4>【販売日】</h4>
+        <input type="text" name="saleDate" value="<%= dateformat(saleDate, 'yyyy-m-dd') %>">
+		<h4>【画像パス】</h4>
+		<textarea name="imagePathList" rows="4" cols="40"></textarea>
+		<h4>【販売ビル】</h4>
+		<select name="lunchBoxStoreId">
+		    <% _.each(lunchBoxStoreMap, function(lunchBoxStore){ %>
+				<option value="<%= lunchBoxStore.id %>"><%= lunchBoxStore.name %></option>
+		    <% }); %>
+		</select>
+		<br>
+        <a href="javascript:void(0)" onclick="document.upload.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">入稿する</a>
+	</form>
+
+	<form method="post" enctype="multipart/form-data" multiple="multiple" action="/admin/upload/imageExecute">
+		<input type="file" name="thumbnail">
+		<input type="submit">
 	</form>
 </div>
