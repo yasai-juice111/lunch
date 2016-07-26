@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 		"saleDate": saleDate
 	},function(error, result) {
 		if (error) {
-		  	res.redirect('/error');
+		  	res.redirect('/error/admin');
 			return
 		}
 		result.saleDate = saleDate;
@@ -49,7 +49,7 @@ router.get('/upload', function(req, res, next) {
 		"saleDate": saleDate
 	},function(error, result) {
 		if (error) {
-		  	res.redirect('/error');
+		  	res.redirect('/error/admin');
 			return
 		}
 		result.saleDate = saleDate;
@@ -76,7 +76,7 @@ router.get('/confirm', function(req, res, next) {
 		"saleDate": saleDate
 	},function(error, result) {
 		if (error) {
-		  	res.redirect('/error');
+		  	res.redirect('/error/admin');
 			return
 		}
 		result.saleDate = saleDate;
@@ -100,7 +100,7 @@ router.post('/delete', function(req, res, next) {
 	}
 	console.log(lunchBoxId);
 	if (!lunchBoxId) {
-	  	res.redirect('/error');
+	  	res.redirect('/error/admin');
 		return;
 	}
 
@@ -109,7 +109,7 @@ router.post('/delete', function(req, res, next) {
 	},function(error, result) {
 		console.log(error);
 		if (error) {
-		  	res.redirect('/error');
+		  	res.redirect('/error/admin');
 			return
 		}
 	  	res.redirect('/admin/confirm');
@@ -141,7 +141,7 @@ router.post('/upload/execute', function(req, res, next) {
 		"lunchBoxStoreId": lunchBoxStoreId
 	},function(error, result) {
 		if (error) {
-		  	res.redirect('/error');
+		  	res.redirect('/error/admin');
 			return
 		}
 	  	res.redirect('/admin/upload');

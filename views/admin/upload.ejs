@@ -13,12 +13,15 @@
 <!-- 		<h4>【店舗名】</h4>
 		<textarea name="storeList" rows="4" cols="40"></textarea> -->
 		<h4>【金額】</h4>
+		<span class="size_ss color_red left">(※半角のみです)</span><br>
 		<textarea name="priceList" rows="4" cols="40"></textarea>
-		<h4>【個数】</h4>
+		<h4>【個数】</h4>	
+		<span class="size_ss color_red left">(※半角のみです)</span><br>
 		<textarea name="amountList" rows="4" cols="40"></textarea>
 		<h4>【販売日】</h4>
         <input type="text" name="saleDate" value="<%= dateformat(saleDate, 'yyyy-m-dd') %>">
 		<h4>【画像パス】</h4>
+		<span class="size_ss color_red left">(※jpgのみです)</span><br>
 		<textarea name="imagePathList" rows="4" cols="40"></textarea>
 		<h4>【販売ビル】</h4>
 		<select name="lunchBoxStoreId">
@@ -29,7 +32,7 @@
 		<br>
         <a href="javascript:void(0)" onclick="document.upload.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">入稿する</a>
 	</form>
-
+	<div class='center color_red'>↓↓↓↓↓↓画像UPLOAD↓↓↓↓↓↓(※jpgのみです)</div><br>
 	<form method="post" enctype="multipart/form-data" action="/admin/upload/imageExecute">
 		<input type="file" name="thumbnail" multiple="multiple" accept="image/*">
 		<input type="submit">
