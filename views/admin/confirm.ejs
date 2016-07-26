@@ -20,6 +20,12 @@
 	                <p>個数:<span class="font_color_orange"><%= lunchBox.amount %></span>個</p><br>
 	                <p><span class="text_right"><%= lunchBox.price %>円</span></p>
 	            </div>
+		        <div class="buttonL pa0">
+		            <form action="/admin/delete" method="POST" name="delete<%= lunchBox.id %>" accept-charset="utf-8">
+				        <input type="hidden" name="lunchBoxId" value="<%= lunchBox.id %>">
+		            </form>
+	        	</div>
+	        	<a href="javascript:void(0)" onclick="document.delete<%= lunchBox.id %>.submit();return false;" class="buttonM dark_gray_button center" style="display:inline-block">削除</a>
 	        </li>
 	    <% }); %>
     </ul>

@@ -85,6 +85,38 @@ router.get('/confirm', function(req, res, next) {
 	});
 });
 
+
+/**
+ * 入稿削除
+ *
+ * @param {Object} req リクエスト
+ * @param {Object} res レスポンス
+ * @param {Function} next ネクスト
+ */
+router.post('/delete', function(req, res, next) {
+	var lunchBoxId = null;
+	if (req.param('lunchBoxId')) {
+		lunchBoxId = req.param('lunchBoxId');
+	}
+	console.log(lunchBoxId);
+	if (!lunchBoxId) {
+	  	res.redirect('/error');
+		return;
+	}
+
+	adminFacade.delete(req, {
+		"lunchBoxId": lunchBoxId
+	},function(error, result) {
+		console.log(error);
+		if (error) {
+		  	res.redirect('/error');
+			return
+		}
+	  	res.redirect('/admin/confirm');
+	});
+});
+
+
 /**
  * 入稿実行
  *
