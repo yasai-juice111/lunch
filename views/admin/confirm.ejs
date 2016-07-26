@@ -1,0 +1,27 @@
+<div id="stage" class="lunch" style="position:relative">
+
+    <%- partial('elements/menu_header', { saleDate : saleDate }); %>
+    <div class="center">
+        <span class="color_red">特定の日時確認</span>
+        <div class="buttonL maT10 maB10 pa0">
+            <form action="/admin/confirm" method="GET" name="confirm" accept-charset="utf-8">
+		        <input type="text" name="targetDatetime" value="<%= dateformat(saleDate, 'yyyy-m-dd') %>">
+            </form>
+        </div>
+        <a href="javascript:void(0)" onclick="document.confirm.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">決定</a>
+    </div>
+    <ul class="lunch_list_wrapper">
+	    <% _.each(lunchBoxList, function(lunchBox){ %>
+			<li class="lunch_menu_layout">
+	            <div class="lunch_menu_image"><img src="<%= lunchBox.imagePath %>" alt="" width="100%;" height="100%;"></div>
+	            <div class="text_layout_m maL0 size_ss">
+	                <p class='lunch_menu_name'><%= lunchBox.name %></p><br>
+	                <p><%= lunchBoxStoreMap[lunchBox.lunchBoxStoreId].name %></p><br>
+	                <p>個数:<span class="font_color_orange"><%= lunchBox.amount %></span>個</p><br>
+	                <p><span class="text_right"><%= lunchBox.price %>円</span></p>
+	            </div>
+	        </li>
+	    <% }); %>
+    </ul>
+    <a href="/admin/upload" class="buttonM next_button maB10 maB10" style="display:inline-block">入稿へ</a>
+</div>

@@ -16,8 +16,12 @@ var adminFacade = require(__libpath + '/models/facade/admin_facade');
  * @param {Function} next ネクスト
  */
 router.get('/', function(req, res, next) {
-	var saleDate = req.currentDatetime || new Date();
-
+	var targetDatetime = null;
+	if (req.param('targetDatetime')) {
+		targetDatetime = req.param('targetDatetime');
+	}
+	var saleDate = (targetDatetime) ? new Date(targetDatetime) : new Date();
+ 
 	adminFacade.index(req, {
 		"saleDate": saleDate
 	},function(error, result) {
@@ -51,6 +55,33 @@ router.get('/upload', function(req, res, next) {
 		result.saleDate = saleDate;
 		result.layout = 'layout/base_admin';
 		res.render('admin/upload', result);
+	});
+});
+
+/**
+ * 入稿確認
+ *
+ * @param {Object} req リクエスト
+ * @param {Object} res レスポンス
+ * @param {Function} next ネクスト
+ */
+router.get('/confirm', function(req, res, next) {
+	var targetDatetime = null;
+	if (req.param('targetDatetime')) {
+		targetDatetime = req.param('targetDatetime');
+	}
+	var saleDate = (targetDatetime) ? new Date(targetDatetime) : new Date();
+
+	adminFacade.confirm(req, {
+		"saleDate": saleDate
+	},function(error, result) {
+		if (error) {
+		  	res.redirect('/error');
+			return
+		}
+		result.saleDate = saleDate;
+		result.layout = 'layout/base_admin';
+		res.render('admin/confirm', result);
 	});
 });
 

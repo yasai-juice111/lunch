@@ -51,9 +51,7 @@ app.use(multer({
       //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
       console.log(data.toString());
   }
-}
-
-  ).any());
+}).any());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
