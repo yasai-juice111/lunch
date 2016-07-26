@@ -30,8 +30,8 @@
         <a href="javascript:void(0)" onclick="document.upload.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">入稿する</a>
 	</form>
 
-	<form method="post" enctype="multipart/form-data" multiple="multiple" action="/admin/upload/imageExecute">
-		<input type="file" name="thumbnail">
+	<form method="post" enctype="multipart/form-data" action="/admin/upload/imageExecute">
+		<input type="file" name="thumbnail" multiple="multiple" accept="image/*">
 		<input type="submit">
 	</form>
 </div>

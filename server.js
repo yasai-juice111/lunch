@@ -46,11 +46,7 @@ app.locals.dateformat = dateformat;
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(multer({
-  dest:__dirname+'/resource/csv/',
-  onFileUploadData:function(file, data, req, res){
-      //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
-      console.log(data.toString());
-  }
+  dest:__dirname+'/public/img/01_thum/'
 }).any());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

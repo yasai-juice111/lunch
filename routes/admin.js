@@ -93,33 +93,6 @@ router.get('/confirm', function(req, res, next) {
  * @param {Function} next ネクスト
  */
 router.post('/upload/execute', function(req, res, next) {
-	// var files = req.files;
-	// var encoding = files[0].encoding;
-	// console.log(encoding);
-	// fs.readFile(files[0].path, function (err, buffer) {
-	// 	console.log(buffer);
-	// 	console.log(buffer.toString('utf8'));
-	// 	console.log(buffer.toString('ascii'));
-	// 	console.log(buffer.toString('base64'));
-	// 	console.log(buffer.toString('ucs2'));
-	// 	console.log(buffer.toString('hex'));
-	// });
-	// fs.readFileSync(files[0].path).toString().split('\n').forEach(function (line) {
-	// 	console.log(line);
-	// });
-	// csv().from.stream(fs.createReadStream(files[0].path).pipe(iconv)).on('record', function(row, index) {
-	//     console.log(index, row.join(','));
-	// 	adminFacade.upload(req, {
-	// 		"lunchBoxData": fs.readFileSync(files[0].path).toString()
-	// 	},function(error, result) {
-	// 		if (error) {
-	// 		  	res.redirect('/error');
-	// 			return
-	// 		}
-	// 		result.saleDate = saleDate;
-	// 	});
-	//  	});
-	// var lunchBoxStoreId = validator.toInt(req.param('nameList'));
 	var nameList = req.param('nameList').split(",");
 	var priceList = req.param('priceList').split(",");
 	var amountList = req.param('amountList').split(",");
@@ -153,50 +126,10 @@ router.post('/upload/execute', function(req, res, next) {
  */
 router.post('/upload/imageExecute', function(req, res, next) {
 	var files = req.files;
-	// var tmpPath = req.files.thumbnail.path;
- //    var targetPath = './upload/' + req.files.thumbnail.originalname;
-	console.log(files);
-	// var encoding = files[0].encoding;
-	// console.log(encoding);
-	// fs.readFile(files[0].path, function (err, buffer) {
-	// 	console.log(buffer);
-	// 	console.log(buffer.toString('utf8'));
-	// 	console.log(buffer.toString('ascii'));
-	// 	console.log(buffer.toString('base64'));
-	// 	console.log(buffer.toString('ucs2'));
-	// 	console.log(buffer.toString('hex'));
-	// });
-	// fs.readFileSync(files[0].path).toString().split('\n').forEach(function (line) {
-	// 	console.log(line);
-	// });
-	// csv().from.stream(fs.createReadStream(files[0].path).pipe(iconv)).on('record', function(row, index) {
-	//     console.log(index, row.join(','));
-	// 	adminFacade.upload(req, {
-	// 		"lunchBoxData": fs.readFileSync(files[0].path).toString()
-	// 	},function(error, result) {
-	// 		if (error) {
-	// 		  	res.redirect('/error');
-	// 			return
-	// 		}
-	// 		result.saleDate = saleDate;
-	// 	});
-	//  	});
-	// var lunchBoxStoreId = validator.toInt(req.param('nameList'));
-	// adminFacade.execute(req, {
-	// 	"nameList": nameList,
-	// 	"priceList": priceList,
-	// 	"amountList": amountList,
-	// 	"saleDate": saleDate,
-	// 	"imagePathList": imagePathList,
-	// 	"lunchBoxStoreId": lunchBoxStoreId
-	// },function(error, result) {
-	// 	if (error) {
-	// 	  	res.redirect('/error');
-	// 		return
-	// 	}
-	//   	res.redirect('/admin/upload');
-	// });
-
+	_.each(files, function(file){
+		fs.renameSync(file.path, file.destination + file.originalname);
+	});
+  	res.redirect('/admin/upload');
 });
 
 module.exports = router;
