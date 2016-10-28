@@ -10,8 +10,6 @@
     <form method="POST" action="/admin/upload/execute" name="upload" accept-charset="utf-8">
 		<h4>【弁当名】</h4>
 		<textarea name="nameList" rows="4" cols="40"></textarea>
-<!-- 		<h4>【店舗名】</h4>
-		<textarea name="storeList" rows="4" cols="40"></textarea> -->
 		<h4>【金額】</h4>
 		<span class="size_ss color_red left">(※半角のみです)</span><br>
 		<textarea name="priceList" rows="4" cols="40"></textarea>
@@ -30,7 +28,8 @@
 		    <% }); %>
 		</select>
 		<br>
-        <a href="javascript:void(0)" onclick="document.upload.submit();return false;" class="buttonM next_button maB10 maB10" style="display:inline-block">入稿する</a>
+		<input type="submit" onclick="javascript:return confirm('入稿します。よろしいでしょうか？');" value="入稿する" class="buttonM next_button maT10 maT10 maB10 maB10">
+        <!-- <a href="javascript:void(0)" type="submit" onclick="javascript:return confirm('入稿します。よろしいでしょうか？');" class="buttonM next_button maT10 maT10 maB10 maB10">入稿する</a> -->
 	</form>
 	<div class='center color_red'>↓↓↓↓↓↓画像UPLOAD↓↓↓↓↓↓(※jpgのみです)</div><br>
 	<form method="post" enctype="multipart/form-data" action="/admin/upload/imageExecute">
